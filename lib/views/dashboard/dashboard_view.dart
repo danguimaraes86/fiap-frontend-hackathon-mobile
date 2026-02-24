@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_hackathon_mobile/configs/routes.dart';
 import 'package:frontend_hackathon_mobile/providers/task_provider.dart';
 import 'package:frontend_hackathon_mobile/shared/widgets/authenticated_app_bar.dart';
+import 'package:frontend_hackathon_mobile/shared/widgets/floating_add_task_buttom.dart';
 import 'package:frontend_hackathon_mobile/views/dashboard/widgets/dashboard_full_details.dart';
 import 'package:provider/provider.dart';
 
@@ -31,16 +31,7 @@ class _DashboardViewState extends State<DashboardView> {
           child: DetailedDashboardCard(),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, Routes.taskForm);
-        },
-        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-        child: Icon(
-          Icons.add,
-          color: Theme.of(context).colorScheme.onPrimaryContainer,
-        ),
-      ),
+      floatingActionButton: FloatingAddTaskButtom(),
     );
   }
 }

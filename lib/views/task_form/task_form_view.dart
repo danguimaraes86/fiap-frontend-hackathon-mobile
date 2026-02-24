@@ -164,30 +164,25 @@ class _TaskFormViewState extends State<TaskFormView> {
                   const SizedBox(height: 16),
 
                   // Data de Entrega
-                  GestureDetector(
+                  TextFormField(
+                    readOnly: true,
                     onTap: _pickDueDate,
-                    child: AbsorbPointer(
-                      child: TextFormField(
-                        readOnly: true,
-                        decoration: InputDecoration(
-                          labelText: 'Data de Entrega',
-                          hintText: 'DD/MM/AAAA',
-                          prefixIcon: const Icon(Icons.calendar_today),
-                          suffixIcon: _dueDate != null
-                              ? IconButton(
-                                  icon: const Icon(Icons.clear),
-                                  onPressed: () =>
-                                      setState(() => _dueDate = null),
-                                )
-                              : null,
-                          border: const OutlineInputBorder(),
-                        ),
-                        controller: TextEditingController(
-                          text: _dueDate != null
-                              ? '${_dueDate!.day.toString().padLeft(2, '0')}/${_dueDate!.month.toString().padLeft(2, '0')}/${_dueDate!.year}'
-                              : '',
-                        ),
-                      ),
+                    decoration: InputDecoration(
+                      labelText: 'Data de Entrega',
+                      hintText: 'DD/MM/AAAA',
+                      prefixIcon: const Icon(Icons.calendar_today),
+                      suffixIcon: _dueDate != null
+                          ? IconButton(
+                              icon: const Icon(Icons.clear),
+                              onPressed: () => setState(() => _dueDate = null),
+                            )
+                          : null,
+                      border: const OutlineInputBorder(),
+                    ),
+                    controller: TextEditingController(
+                      text: _dueDate != null
+                          ? '${_dueDate!.day.toString().padLeft(2, '0')}/${_dueDate!.month.toString().padLeft(2, '0')}/${_dueDate!.year}'
+                          : '',
                     ),
                   ),
                 ],

@@ -93,7 +93,7 @@ class Task {
 
 enum TaskStatus {
   pending('pending', 'Pendente', Icons.assignment_late, 'tertiary'),
-  inProgress('in_progress', 'Em Progresso', Icons.pending_actions, 'primary'),
+  inProgress('in_progress', 'Em andamento', Icons.pending_actions, 'primary'),
   completed('completed', 'Concluída', Icons.task_alt, 'secondary');
 
   final String value;

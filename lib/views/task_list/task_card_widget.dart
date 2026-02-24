@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_hackathon_mobile/configs/custom_theme.dart';
 import 'package:frontend_hackathon_mobile/models/task_model.dart';
+import 'package:frontend_hackathon_mobile/providers/task_provider.dart';
+import 'package:frontend_hackathon_mobile/views/task_form/task_form_view.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class TaskCard extends StatelessWidget {
   final Task task;
@@ -41,7 +44,29 @@ class _TaskCardHeader extends StatelessWidget {
 
   const _TaskCardHeader({required this.task});
 
-  void _handleMenuSelection(_TaskMenuOption option) {}
+  void _handleMenuSelection(BuildContext context, _TaskMenuOption option) {
+    final taskProvider = context.read<TaskProvider>();
+
+    switch (option) {
+      case _TaskMenuOption.start:
+        taskProvider.startPendingTask(task.id);
+        break;
+      case _TaskMenuOption.complete:
+        taskProvider.updateTaskStatus(task.id, TaskStatus.completed);
+        break;
+      case _TaskMenuOption.edit:
+        Navigator.of(
+          context,
+        ).push(MaterialPageRoute(builder: (_) => TaskFormView(task: task)));
+        break;
+      case _TaskMenuOption.delete:
+        taskProvider.deleteTask(task.id);
+        break;
+      case _TaskMenuOption.details:
+        // TODO: navegar para tela de detalhes
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +81,7 @@ class _TaskCardHeader extends StatelessWidget {
         ),
         PopupMenuButton<_TaskMenuOption>(
           icon: const Icon(Icons.more_vert),
-          onSelected: _handleMenuSelection,
+          onSelected: (option) => _handleMenuSelection(context, option),
           itemBuilder: (context) => [
             if (task.status.value == TaskStatus.inProgress.value)
               const PopupMenuItem(

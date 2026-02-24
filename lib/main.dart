@@ -30,8 +30,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'MindEase',
-      theme: ThemeData.from(colorScheme: CustomTheme.lightScheme()),
-      darkTheme: ThemeData.from(colorScheme: CustomTheme.darkScheme()),
+      theme: CustomTheme(Theme.of(context).textTheme).light(),
+      darkTheme: CustomTheme(Theme.of(context).textTheme).dark(),
       themeMode: ThemeMode.system,
       routes: Routes().routes,
       localizationsDelegates: const [

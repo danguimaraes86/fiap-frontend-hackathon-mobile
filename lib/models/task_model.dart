@@ -92,15 +92,16 @@ class Task {
 }
 
 enum TaskStatus {
-  pending('pending', 'Pendente', Icons.assignment_late),
-  inProgress('in_progress', 'Em Progresso', Icons.pending_actions),
-  completed('completed', 'Concluída', Icons.task_alt);
+  pending('pending', 'Pendente', Icons.assignment_late, 'tertiary'),
+  inProgress('in_progress', 'Em Progresso', Icons.pending_actions, 'primary'),
+  completed('completed', 'Concluída', Icons.task_alt, 'secondary');
 
   final String value;
   final String label;
   final IconData icon;
+  final String color;
 
-  const TaskStatus(this.value, this.label, this.icon);
+  const TaskStatus(this.value, this.label, this.icon, this.color);
 
   static TaskStatus fromValue(String value) {
     return TaskStatus.values.firstWhere(

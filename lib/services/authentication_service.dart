@@ -11,6 +11,17 @@ class AuthenticationService {
     return _auth.currentUser!.uid;
   }
 
+  Stream<UserModel?> get authStateChanges {
+    return _auth.authStateChanges().map((firebaseUser) {
+      if (firebaseUser == null) return null;
+      return UserModel(
+        uid: firebaseUser.uid,
+        name: firebaseUser.displayName ?? 'Nome do usuário',
+        email: firebaseUser.email ?? 'Email do usuário',
+      );
+    });
+  }
+
   Future<UserModel> signupUser(SignupRequest request) async {
     try {
       UserCredential credential = await _auth.createUserWithEmailAndPassword(

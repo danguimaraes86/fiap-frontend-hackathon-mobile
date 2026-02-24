@@ -7,7 +7,7 @@ import 'package:frontend_hackathon_mobile/views/task_form/task_form_view.dart';
 import 'package:frontend_hackathon_mobile/views/task_list/task_list_view.dart';
 
 class Routes {
-  static String home = '/';
+  static String home = '/home';
   static String signUp = '/signup';
   static String login = '/login';
   static String dashboard = '/dashboard';

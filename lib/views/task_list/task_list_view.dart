@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_hackathon_mobile/providers/task_provider.dart';
+import 'package:frontend_hackathon_mobile/providers/user_preferences_provider.dart';
 import 'package:frontend_hackathon_mobile/shared/widgets/authenticated_app_bar.dart';
 import 'package:frontend_hackathon_mobile/shared/widgets/floating_add_task_buttom.dart';
 import 'package:frontend_hackathon_mobile/views/task_list/task_card_widget.dart';
@@ -31,13 +32,15 @@ class TaskListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = context.watch<TaskProvider>();
-    final inProgressTasks = provider.inProgressTasks;
-    final pendingTasks = provider.pendingTasks;
-    final completedTasks = provider.completedTasks;
+    final taskProvider = context.watch<TaskProvider>();
+    final userPreferencesProvider = context.watch<UserPreferencesProvider>();
 
-    final showPendingTasks = true;
-    final showCompletedTasks = inProgressTasks.length > 2;
+    final inProgressTasks = taskProvider.inProgressTasks;
+    final pendingTasks = taskProvider.pendingTasks;
+    final completedTasks = taskProvider.completedTasks;
+
+    final showPendingTasks = userPreferencesProvider.preferences.showPendingTasks;
+    final showCompletedTasks = userPreferencesProvider.preferences.showCompletedTasks;
 
     final List<Widget> taskList = [
       if (inProgressTasks.isNotEmpty) ...[

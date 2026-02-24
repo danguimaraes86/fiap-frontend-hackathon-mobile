@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_hackathon_mobile/configs/custom_theme.dart';
 import 'package:frontend_hackathon_mobile/configs/routes.dart';
 
 class FloatingAddTaskButtom extends StatelessWidget {
@@ -13,7 +14,7 @@ class FloatingAddTaskButtom extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       child: Icon(
         Icons.add,
-        color: Theme.of(context).colorScheme.onPrimaryContainer,
+        color: CustomTheme(Theme.of(context).textTheme).light().colorScheme.surface,
       ),
     );
   }

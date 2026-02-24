@@ -5,6 +5,7 @@ import 'package:frontend_hackathon_mobile/views/dashboard/dashboard_view.dart';
 import 'package:frontend_hackathon_mobile/views/home/home_view.dart';
 import 'package:frontend_hackathon_mobile/views/task_form/task_form_view.dart';
 import 'package:frontend_hackathon_mobile/views/task_list/task_list_view.dart';
+import 'package:frontend_hackathon_mobile/views/user_preferences_form/user_preferences_form_view.dart';
 
 class Routes {
   static String home = '/home';
@@ -13,6 +14,7 @@ class Routes {
   static String dashboard = '/dashboard';
   static String taskList = '/list';
   static String taskForm = '/task';
+  static String userPreferencesForm = '/preferences';
 
   Map<String, WidgetBuilder> get routes {
     return {
@@ -22,6 +24,7 @@ class Routes {
       Routes.dashboard: (context) => const DashboardView(),
       Routes.taskList: (context) => const TaskListView(),
       Routes.taskForm: (context) => const TaskFormView(),
+      Routes.userPreferencesForm: (context) => const UserPreferencesFormView(),
     };
   }
 }

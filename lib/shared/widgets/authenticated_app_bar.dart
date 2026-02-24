@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_hackathon_mobile/configs/custom_theme.dart';
 import 'package:frontend_hackathon_mobile/configs/routes.dart';
 import 'package:frontend_hackathon_mobile/providers/authentication_provider.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +15,9 @@ class AuthenticatedAppBar extends StatelessWidget
   Widget build(BuildContext context) {
     final authProvider = context.read<AuthenticationProvider>();
     final colorScheme = Theme.of(context).colorScheme;
+    final lightTheme = CustomTheme(
+      Theme.of(context).textTheme,
+    ).light().colorScheme;
 
     void logoutUser() async {
       authProvider.handleLogoutUser();
@@ -31,22 +35,23 @@ class AuthenticatedAppBar extends StatelessWidget
           ? IconButton(
               icon: Icon(
                 Icons.arrow_back,
-                color: colorScheme.onPrimaryContainer,
+                color: lightTheme.surface,
               ),
               onPressed: () => Navigator.of(context).pop(),
             )
           : null,
       actions: [
         IconButton(
-          onPressed: () {},
+          onPressed: () =>
+              Navigator.of(context).pushNamed(Routes.userPreferencesForm),
           icon: const Icon(Icons.tune),
-          color: colorScheme.onPrimaryContainer,
+          color: lightTheme.surface,
           tooltip: 'Preferências',
         ),
         IconButton(
           onPressed: logoutUser,
           icon: const Icon(Icons.logout),
-          color: colorScheme.onPrimaryContainer,
+          color: lightTheme.surface,
           tooltip: 'Sair',
         ),
       ],

@@ -5,6 +5,7 @@ import 'package:frontend_hackathon_mobile/configs/custom_theme.dart';
 import 'package:frontend_hackathon_mobile/configs/routes.dart';
 import 'package:frontend_hackathon_mobile/providers/authentication_provider.dart';
 import 'package:frontend_hackathon_mobile/providers/task_provider.dart';
+import 'package:frontend_hackathon_mobile/providers/user_preferences_provider.dart';
 import 'package:frontend_hackathon_mobile/views/home/auth_wrapper.dart';
 import 'package:provider/provider.dart';
 
@@ -18,6 +19,7 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => AuthenticationProvider()),
         ChangeNotifierProvider(create: (context) => TaskProvider()),
+        ChangeNotifierProvider(create: (context) => UserPreferencesProvider()),
       ],
       child: const MyApp(),
     ),
@@ -29,11 +31,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeMode = context.select<UserPreferencesProvider, ThemeMode>(
+      (provider) => provider.themeMode,
+    );
+
     return MaterialApp(
       title: 'MindEase',
       theme: CustomTheme(Theme.of(context).textTheme).light(),
       darkTheme: CustomTheme(Theme.of(context).textTheme).dark(),
-      themeMode: ThemeMode.system,
+      themeMode: themeMode,
       home: AuthWrapper(),
       routes: Routes().routes,
       localizationsDelegates: const [

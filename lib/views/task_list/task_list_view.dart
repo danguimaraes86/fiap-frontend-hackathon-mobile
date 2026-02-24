@@ -8,18 +8,60 @@ import 'package:provider/provider.dart';
 class TaskListView extends StatelessWidget {
   const TaskListView({super.key});
 
+  Widget _buildSectionHeader(BuildContext context, String label) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 4),
+      child: Row(
+        children: [
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 14,
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Divider(color: Theme.of(context).colorScheme.onSurface),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final tasks = context.watch<TaskProvider>().allTasks;
+    final provider = context.watch<TaskProvider>();
+    final inProgressTasks = provider.inProgressTasks;
+    final pendingTasks = provider.pendingTasks;
+    final completedTasks = provider.completedTasks;
+
+    final showPendingTasks = true;
+    final showCompletedTasks = inProgressTasks.length > 2;
+
+    final List<Widget> taskList = [
+      if (inProgressTasks.isNotEmpty) ...[
+        _buildSectionHeader(
+          context,
+          'Em andamento (${inProgressTasks.length})',
+        ),
+        ...inProgressTasks.map((task) => TaskCard(task: task)),
+      ],
+      if (showPendingTasks && pendingTasks.isNotEmpty) ...[
+        _buildSectionHeader(context, 'Pendentes (${pendingTasks.length})'),
+        ...pendingTasks.map((task) => TaskCard(task: task)),
+      ],
+      if (showCompletedTasks && completedTasks.isNotEmpty) ...[
+        _buildSectionHeader(context, 'Concluídas (${completedTasks.length})'),
+        ...completedTasks.map((task) => TaskCard(task: task)),
+      ],
+    ];
 
     return Scaffold(
       appBar: AuthenticatedAppBar(),
-      body: ListView.builder(
+      body: ListView(
         padding: const EdgeInsets.only(top: 8, bottom: 96),
-        itemCount: tasks.length,
-        itemBuilder: (context, index) {
-          return TaskCard(task: tasks[index]);
-        },
+        children: taskList,
       ),
       floatingActionButton: FloatingAddTaskButtom(),
     );

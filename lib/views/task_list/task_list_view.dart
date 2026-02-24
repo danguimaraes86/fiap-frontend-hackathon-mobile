@@ -3,7 +3,7 @@ import 'package:frontend_hackathon_mobile/providers/task_provider.dart';
 import 'package:frontend_hackathon_mobile/providers/user_preferences_provider.dart';
 import 'package:frontend_hackathon_mobile/shared/widgets/authenticated_app_bar.dart';
 import 'package:frontend_hackathon_mobile/shared/widgets/floating_add_task_buttom.dart';
-import 'package:frontend_hackathon_mobile/views/task_list/task_card_widget.dart';
+import 'package:frontend_hackathon_mobile/shared/widgets/task_card_widget.dart';
 import 'package:provider/provider.dart';
 
 class TaskListView extends StatelessWidget {
@@ -39,8 +39,10 @@ class TaskListView extends StatelessWidget {
     final pendingTasks = taskProvider.pendingTasks;
     final completedTasks = taskProvider.completedTasks;
 
-    final showPendingTasks = userPreferencesProvider.preferences.showPendingTasks;
-    final showCompletedTasks = userPreferencesProvider.preferences.showCompletedTasks;
+    final showPendingTasks =
+        userPreferencesProvider.preferences.showPendingTasks;
+    final showCompletedTasks =
+        userPreferencesProvider.preferences.showCompletedTasks;
 
     final List<Widget> taskList = [
       if (inProgressTasks.isNotEmpty) ...[

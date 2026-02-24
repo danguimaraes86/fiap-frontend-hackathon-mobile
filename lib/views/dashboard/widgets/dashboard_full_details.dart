@@ -47,103 +47,108 @@ class DetailedDashboardCard extends StatelessWidget {
 
     final bool hastasks = taskCount > 0;
 
-    return Card(
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: BorderSide(
-          color: Theme.of(context).colorScheme.primary,
-          width: 1,
-        ),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Card Header
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Bem-vindo, $username',
-                  style: Theme.of(context).textTheme.headlineSmall,
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  _getWelcomeMessage(),
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
-                ),
-              ],
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Card(
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+            side: BorderSide(
+              color: Theme.of(context).colorScheme.primary,
+              width: 1,
             ),
           ),
-
-          // Card Content
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 40.0,
-              horizontal: 16.0,
-            ),
-            child: Center(
-              child: hastasks
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      spacing: 12,
-                      children: taskStatuses
-                          .where((s) => (s['count'] as int) > 0)
-                          .map((statusMap) {
-                            final status = statusMap['status'] as TaskStatus;
-                            final count = statusMap['count'] as int;
-
-                            return Badge(
-                              label: Text(
-                                count.toString(),
-                                style: TextStyle(
-                                  color: Theme.of(
-                                    context,
-                                  ).colorScheme.onPrimary,
-                                ),
-                              ),
-                              backgroundColor: Theme.of(
-                                context,
-                              ).colorScheme.primary,
-                              child: Chip(
-                                avatar: Icon(status.icon, size: 20),
-                                label: Text(status.label),
-                              ),
-                            );
-                          })
-                          .toList(),
-                    )
-                  : Icon(
-                      Icons.self_improvement,
-                      size: 80,
-                      color: Theme.of(context).colorScheme.primary,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Card Header
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Bem-vindo, $username',
+                      style: Theme.of(context).textTheme.headlineSmall,
                     ),
-            ),
-          ),
-
-          // Card Actions
-          if (hastasks)
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Center(
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.5,
-                  child: FilledButton.icon(
-                    onPressed: () {
-                      Navigator.pushNamed(context, Routes.taskList);
-                    },
-                    icon: const Icon(Icons.task),
-                    label: const Text('Ver Tarefas'),
-                  ),
+                    const SizedBox(height: 4),
+                    Text(
+                      _getWelcomeMessage(),
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ),
-        ],
+        
+              // Card Content
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 40.0,
+                  horizontal: 16.0,
+                ),
+                child: Center(
+                  child: hastasks
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          spacing: 12,
+                          children: taskStatuses
+                              .where((s) => (s['count'] as int) > 0)
+                              .map((statusMap) {
+                                final status = statusMap['status'] as TaskStatus;
+                                final count = statusMap['count'] as int;
+        
+                                return Badge(
+                                  label: Text(
+                                    count.toString(),
+                                    style: TextStyle(
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.onPrimary,
+                                    ),
+                                  ),
+                                  backgroundColor: Theme.of(
+                                    context,
+                                  ).colorScheme.primary,
+                                  child: Chip(
+                                    avatar: Icon(status.icon, size: 20),
+                                    label: Text(status.label),
+                                  ),
+                                );
+                              })
+                              .toList(),
+                        )
+                      : Icon(
+                          Icons.self_improvement,
+                          size: 80,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                ),
+              ),
+        
+              // Card Actions
+              if (hastasks)
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Center(
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.5,
+                      child: FilledButton.icon(
+                        onPressed: () {
+                          Navigator.pushNamed(context, Routes.taskList);
+                        },
+                        icon: const Icon(Icons.task),
+                        label: const Text('Ver Tarefas'),
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ),
       ),
     );
   }

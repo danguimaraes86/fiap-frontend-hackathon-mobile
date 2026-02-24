@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_hackathon_mobile/providers/task_provider.dart';
+import 'package:frontend_hackathon_mobile/providers/user_preferences_provider.dart';
 import 'package:frontend_hackathon_mobile/shared/widgets/authenticated_app_bar.dart';
 import 'package:frontend_hackathon_mobile/shared/widgets/floating_add_task_buttom.dart';
+import 'package:frontend_hackathon_mobile/views/dashboard/widgets/dashboard_focus_mode.dart';
 import 'package:frontend_hackathon_mobile/views/dashboard/widgets/dashboard_full_details.dart';
 import 'package:provider/provider.dart';
 
@@ -23,14 +25,14 @@ class _DashboardViewState extends State<DashboardView> {
 
   @override
   Widget build(BuildContext context) {
+    bool isFocusMode = context
+        .watch<UserPreferencesProvider>()
+        .preferences
+        .focusMode;
+
     return Scaffold(
       appBar: AuthenticatedAppBar(),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: DetailedDashboardCard(),
-        ),
-      ),
+      body: isFocusMode ? FocusModeDashboard() : DetailedDashboardCard(),
       floatingActionButton: FloatingAddTaskButtom(),
     );
   }

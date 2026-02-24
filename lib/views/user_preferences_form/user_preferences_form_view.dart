@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_hackathon_mobile/configs/custom_theme.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/user_preferences_model.dart';
@@ -64,15 +65,19 @@ class _UserPreferencesFormViewState extends State<UserPreferencesFormView> {
 
   @override
   Widget build(BuildContext context) {
+    final lightTheme = CustomTheme(
+      Theme.of(context).textTheme,
+    ).light().colorScheme;
+    
     return Scaffold(
       appBar: AppBar(
         title: const Text('Preferências'),
-        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-        foregroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: lightTheme.primaryContainer,
+        foregroundColor: lightTheme.surface,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: Theme.of(context).colorScheme.surface,
+            color: lightTheme.surface,
           ),
           onPressed: () => Navigator.of(context).pop(),
         ),
@@ -131,19 +136,6 @@ class _UserPreferencesFormViewState extends State<UserPreferencesFormView> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('Mostrar tarefas concluídas'),
-                Switch(
-                  value: _showCompletedTasks,
-                  onChanged: (value) {
-                    setState(() => _showCompletedTasks = value);
-                    _handleFilterChange(value);
-                  },
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
                 const Text('Mostrar tarefas pendentes'),
                 Switch(
                   value: _showPendingTasks,
@@ -154,19 +146,34 @@ class _UserPreferencesFormViewState extends State<UserPreferencesFormView> {
                 ),
               ],
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('Mostrar tarefas concluídas'),
+                Switch(
+                  value: _showCompletedTasks,
+                  onChanged: (value) {
+                    setState(() => _showCompletedTasks = value);
+                    _handleFilterChange(value);
+                  },
+                ),
+              ],
+            ),
           ],
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Consumer<UserPreferencesProvider>(
-          builder: (context, provider, _) {
-            return FilledButton.icon(
-              onPressed: provider.isLoading ? null : _onSubmit,
-              icon: const Icon(Icons.save),
-              label: const Text('Salvar'),
-            );
-          },
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Consumer<UserPreferencesProvider>(
+            builder: (context, provider, _) {
+              return FilledButton.icon(
+                onPressed: provider.isLoading ? null : _onSubmit,
+                icon: const Icon(Icons.save),
+                label: const Text('Salvar'),
+              );
+            },
+          ),
         ),
       ),
     );

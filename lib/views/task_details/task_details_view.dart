@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_hackathon_mobile/configs/custom_theme.dart';
 import 'package:frontend_hackathon_mobile/models/task_model.dart';
 import 'package:frontend_hackathon_mobile/providers/task_provider.dart';
 import 'package:frontend_hackathon_mobile/shared/widgets/shared_app_bar.dart';
@@ -135,36 +136,45 @@ class _StatusBadge extends StatelessWidget {
 
   const _StatusBadge({required this.status});
 
-  Color _resolveColor(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    return switch (status.color) {
-      'primary' => colorScheme.primary,
-      'secondary' => colorScheme.secondary,
-      'tertiary' => colorScheme.tertiary,
-      _ => colorScheme.primary,
-    };
-  }
-
   @override
   Widget build(BuildContext context) {
-    final color = _resolveColor(context);
+    final lightColorScheme = CustomTheme(
+      Theme.of(context).textTheme,
+    ).light().colorScheme;
+
+    final colors = {
+      'primary': (
+        fg: lightColorScheme.primary,
+        bg: lightColorScheme.onPrimaryContainer,
+      ),
+      'secondary': (
+        fg: lightColorScheme.secondary,
+        bg: lightColorScheme.onSecondaryContainer,
+      ),
+      'tertiary': (
+        fg: lightColorScheme.tertiary,
+        bg: lightColorScheme.onTertiaryContainer,
+      ),
+    };
+
+    final chipColors = colors[status.color] ?? colors['primary']!;
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.15),
+        color: chipColors.bg,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: color.withOpacity(0.4)),
+        border: Border.all(color: chipColors.fg),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(status.icon, size: 16, color: color),
+          Icon(status.icon, size: 16, color: chipColors.fg),
           const SizedBox(width: 6),
           Text(
             status.label,
             style: TextStyle(
-              color: color,
+              color: chipColors.fg,
               fontWeight: FontWeight.w600,
               fontSize: 13,
             ),

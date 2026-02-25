@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_hackathon_mobile/configs/custom_theme.dart';
+import 'package:frontend_hackathon_mobile/shared/widgets/shared_app_bar.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/user_preferences_model.dart';
@@ -65,23 +65,8 @@ class _UserPreferencesFormViewState extends State<UserPreferencesFormView> {
 
   @override
   Widget build(BuildContext context) {
-    final lightTheme = CustomTheme(
-      Theme.of(context).textTheme,
-    ).light().colorScheme;
-    
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Preferências'),
-        backgroundColor: lightTheme.primaryContainer,
-        foregroundColor: lightTheme.surface,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: lightTheme.surface,
-          ),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-      ),
+      appBar: SharedAppBar(title: 'Preferências'),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(

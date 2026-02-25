@@ -3,6 +3,7 @@ import 'package:frontend_hackathon_mobile/models/task_model.dart';
 import 'package:frontend_hackathon_mobile/providers/task_provider.dart';
 import 'package:frontend_hackathon_mobile/shared/utils/form_validators.dart';
 import 'package:frontend_hackathon_mobile/shared/widgets/custom_input_text.dart';
+import 'package:frontend_hackathon_mobile/shared/widgets/shared_app_bar.dart';
 import 'package:provider/provider.dart';
 
 class TaskFormView extends StatefulWidget {
@@ -101,15 +102,8 @@ class _TaskFormViewState extends State<TaskFormView> {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
     return Scaffold(
-      appBar: AppBar(
-        title: Text(_isEditing ? 'Editar Tarefa' : 'Nova Tarefa'),
-        centerTitle: true,
-        backgroundColor: colorScheme.primaryContainer,
-        foregroundColor: colorScheme.onPrimaryContainer,
-      ),
+      appBar: SharedAppBar(title: _isEditing ? 'Editar Tarefa' : 'Nova Tarefa'),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24.0),
         child: Form(

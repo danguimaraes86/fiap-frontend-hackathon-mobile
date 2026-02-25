@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_hackathon_mobile/providers/task_provider.dart';
 import 'package:frontend_hackathon_mobile/providers/user_preferences_provider.dart';
-import 'package:frontend_hackathon_mobile/shared/widgets/authenticated_app_bar.dart';
 import 'package:frontend_hackathon_mobile/shared/widgets/floating_add_task_buttom.dart';
+import 'package:frontend_hackathon_mobile/shared/widgets/shared_app_bar.dart';
 import 'package:frontend_hackathon_mobile/shared/widgets/task_card_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -63,7 +63,7 @@ class TaskListView extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: AuthenticatedAppBar(),
+      appBar: SharedAppBar(title: 'Lista de Tarefas'),
       body: ListView(
         padding: const EdgeInsets.only(top: 8, bottom: 96),
         children: taskList,

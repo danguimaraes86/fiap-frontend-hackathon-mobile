@@ -30,12 +30,12 @@ class AuthenticatedAppBar extends StatelessWidget
 
     return AppBar(
       backgroundColor: colorScheme.primaryContainer,
+      foregroundColor: lightTheme.surface,
       title: Image.asset("assets/logos/logo_desktop.png", height: 40),
       leading: Navigator.canPop(context)
           ? IconButton(
               icon: Icon(
                 Icons.arrow_back,
-                color: lightTheme.surface,
               ),
               onPressed: () => Navigator.of(context).pop(),
             )
@@ -45,13 +45,11 @@ class AuthenticatedAppBar extends StatelessWidget
           onPressed: () =>
               Navigator.of(context).pushNamed(Routes.userPreferencesForm),
           icon: const Icon(Icons.tune),
-          color: lightTheme.surface,
           tooltip: 'Preferências',
         ),
         IconButton(
           onPressed: logoutUser,
           icon: const Icon(Icons.logout),
-          color: lightTheme.surface,
           tooltip: 'Sair',
         ),
       ],

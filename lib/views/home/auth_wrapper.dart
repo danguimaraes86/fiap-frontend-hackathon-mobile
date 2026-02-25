@@ -21,11 +21,10 @@ class _AuthWrapperState extends State<AuthWrapper> {
   void _listenToAuthState() {
     final authProvider = context.watch<AuthenticationProvider>();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted) return;
-
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (authProvider.isLoggedIn) {
-        context.read<UserPreferencesProvider>().init();
+        await context.read<UserPreferencesProvider>().init();
+        if (!mounted) return;
         Navigator.of(context).pushReplacementNamed(Routes.dashboard);
       } else {
         Navigator.of(context).pushReplacementNamed(Routes.home);

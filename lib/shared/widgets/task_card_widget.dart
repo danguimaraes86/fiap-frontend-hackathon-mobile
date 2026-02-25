@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend_hackathon_mobile/configs/custom_theme.dart';
 import 'package:frontend_hackathon_mobile/models/task_model.dart';
 import 'package:frontend_hackathon_mobile/providers/task_provider.dart';
+import 'package:frontend_hackathon_mobile/views/task_details/task_details_view.dart';
 import 'package:frontend_hackathon_mobile/views/task_form/task_form_view.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -63,7 +64,8 @@ class _TaskCardHeader extends StatelessWidget {
         taskProvider.deleteTask(task.id);
         break;
       case _TaskMenuOption.details:
-        // TODO: navegar para tela de detalhes
+        Navigator.of(context).push(TaskDetailsView.route(task));
+
         break;
     }
   }

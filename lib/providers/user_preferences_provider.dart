@@ -4,7 +4,15 @@ import '../models/user_preferences_model.dart';
 import '../services/user_preferences_service.dart';
 
 class UserPreferencesProvider extends ChangeNotifier {
-  final UserPreferencesService _service = UserPreferencesService();
+  late final UserPreferencesService _service;
+
+  UserPreferencesProvider() {
+    _service = UserPreferencesService();
+  }
+
+  UserPreferencesProvider.withService(UserPreferencesService service) {
+    _service = service;
+  }
 
   UserPreferencesModel _preferences = UserPreferencesModel.defaultPreferences;
   bool _isLoading = false;

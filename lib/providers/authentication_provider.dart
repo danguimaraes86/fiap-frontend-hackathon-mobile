@@ -7,7 +7,7 @@ import 'package:frontend_hackathon_mobile/services/authentication_service.dart';
 import 'package:frontend_hackathon_mobile/services/exceptions/authentication_exception.dart';
 
 class AuthenticationProvider with ChangeNotifier {
-  final AuthenticationService _authService = AuthenticationService();
+  late final AuthenticationService _authService;
   StreamSubscription<UserModel?>? _authSubscription;
 
   UserModel? _user;
@@ -23,6 +23,12 @@ class AuthenticationProvider with ChangeNotifier {
   String? get errorMessage => _errorMessage;
 
   AuthenticationProvider() {
+    _authService = AuthenticationService();
+    _initAuthObserver();
+  }
+
+  AuthenticationProvider.withService(AuthenticationService service) {
+    _authService = service;
     _initAuthObserver();
   }
 

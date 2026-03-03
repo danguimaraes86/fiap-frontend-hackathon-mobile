@@ -6,8 +6,16 @@ import '../models/task_model.dart';
 import '../services/task_service.dart';
 
 class TaskProvider extends ChangeNotifier {
-  final _taskService = TaskService();
+  late final TaskService _taskService;
   StreamSubscription<List<Task>>? _tasksSubscription;
+
+  TaskProvider() {
+    _taskService = TaskService();
+  }
+
+  TaskProvider.withService(TaskService service) {
+    _taskService = service;
+  }
 
   List<Task> _allUserTasks = [];
   List<Task> get allTasks => List.unmodifiable(_allUserTasks);
